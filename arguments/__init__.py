@@ -52,12 +52,12 @@ class ModelParams(ParamGroup):
         self._images = "images"
         self.dataset = "LLFF"
         self._resolution = -1
-        self._white_background = False
+        self._white_background = True
         self.data_device = "cuda:0"
         self.eval = False
         self.rand_pcd = False
         self.mvs_pcd = False
-        self.n_sparse = -1
+        self.n_sparse = 6
         super().__init__(parser, "Loading Parameters", sentinel)
 
     def extract(self, args):
@@ -74,13 +74,13 @@ class PipelineParams(ParamGroup):
 
 class OptimizationParams(ParamGroup):
     def __init__(self, parser):
-        self.iterations = 30_000
+        self.iterations = 6000
         self.position_lr_init = 0.00016
         self.position_lr_final = 0.0000016
         self.position_lr_delay_mult = 0.01
-        self.position_lr_max_steps = 30_000
+        self.position_lr_max_steps = 5500
         self.position_lr_delay_steps = 0
-        self.position_lr_start = 0
+        self.position_lr_start = 500
         self.feature_lr = 0.0025
         self.opacity_lr = 0.05
         self.scaling_lr = 0.005
@@ -89,21 +89,21 @@ class OptimizationParams(ParamGroup):
         
         self.neural_grid = 5e-3
         self.neural_net = 5e-4
-        self.error_tolerance = 0.2
+        self.error_tolerance = 0.05
         self.split_opacity_thresh = 0.1
-        self.soft_depth_start = 1000
+        self.soft_depth_start = 9999999
         self.hard_depth_start = 0
 
-        self.shape_pena = 0.001
-        self.scale_pena = 0.001
-        self.opa_pena = 0.01
+        self.shape_pena = 0.000
+        self.scale_pena = 0.000
+        self.opa_pena = 0.000
 
-        self.lambda_dssim = 0.2
+        self.lambda_dssim = 0.4
         self.densification_interval = 100
         self.opacity_reset_interval = 3000
         self.densify_from_iter = 500
-        self.densify_until_iter = 15_000
-        self.densify_grad_threshold = 0.0001
+        self.densify_until_iter = 6000
+        self.densify_grad_threshold = 0.001
         self.prune_threshold = 0.01
         # self.densify_grad_threshold = 0.002
         super().__init__(parser, "Optimization Parameters")

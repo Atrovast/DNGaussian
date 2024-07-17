@@ -281,7 +281,7 @@ def readCamerasFromTransforms(path, transformsfile, white_background, extension=
 
         frames = contents["frames"]
         for idx, frame in enumerate(frames):
-            cam_name = os.path.join(path, frame["file_path"] + extension)
+            cam_name = os.path.join('./', frame["file_path"] + extension)
 
             # NeRF 'transform_matrix' is a camera-to-world transform
             c2w = np.array(frame["transform_matrix"])
@@ -322,9 +322,9 @@ def readCamerasFromTransforms(path, transformsfile, white_background, extension=
 
 def readNerfSyntheticInfo(path, white_background, eval, rand_pcd, llffhold=8, N_sparse=-1, extension=".png"):
     print("Reading Training Transforms")
-    train_cam_infos = readCamerasFromTransforms(path, "transforms_train.json", white_background, extension)
-    print("Reading Test Transforms")
-    test_cam_infos = readCamerasFromTransforms(path, "transforms_test.json", white_background, extension)
+    train_cam_infos = readCamerasFromTransforms("../DNGaussian/data/zero123/", "transforms_train.json", white_background, extension)
+    # print("Reading Test Transforms")
+    # test_cam_infos = readCamerasFromTransforms(path, "transforms_test.json", white_background, extension)
     
     if eval:
         if N_sparse > 0:
@@ -346,11 +346,11 @@ def readNerfSyntheticInfo(path, white_background, eval, rand_pcd, llffhold=8, N_
         print('Init random point cloud.')
     if rand_pcd or not os.path.exists(ply_path):
         # Since this data set has no colmap data, we start with random points
-        num_pts = 10_000
+        num_pts = 5000
         print(f"Generating random point cloud ({num_pts})...")
         
         # We create random points inside the bounds of the synthetic Blender scenes
-        xyz = np.random.random((num_pts, 3)) * 2 - 1
+        xyz = np.random.random((num_pts, 3)) * 1 - 0.5
         shs = np.random.random((num_pts, 3)) / 255.0
         pcd = BasicPointCloud(points=xyz, colors=SH2RGB(shs), normals=np.zeros((num_pts, 3)))
 

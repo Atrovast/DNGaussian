@@ -35,8 +35,8 @@ class Camera(nn.Module):
             print(e)
             print(f"[Warning] Custom device {data_device} failed, fallback to default cuda device" )
             self.data_device = torch.device("cuda")
-        if torch.cuda.is_available():
-            torch.cuda.set_device(self.data_device)
+        # if torch.cuda.is_available():
+            # torch.cuda.set_device(self.data_device)
 
         self.depth_mono = None
         self.original_image = None

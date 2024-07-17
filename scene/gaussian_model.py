@@ -283,11 +283,14 @@ class GaussianModel:
         scale = self._scaling.detach().cpu().numpy()
         rotation = self._rotation.detach().cpu().numpy()
         color = color.detach().cpu().numpy()
-
-        dtype_full = [(attribute, 'f4') for attribute in self.construct_list_of_attributes()] + [(ch, "u1") for ch in ['red', 'green', 'blue']]
-
+        f_dc = RGB2SH(color)
+        f_rest = np.zeros((xyz.shape[0], 3 * (self.max_sh_degree + 1) ** 2 - 3))
+        fd = [f'f_dc_{i}' for i in range(f_dc.shape[1])]
+        fr = [f'f_rest_{i}' for i in range(f_rest.shape[1])]
+        dtype_full = [(attribute, 'f4') for attribute in self.construct_list_of_attributes()] + [(ch, "f4") for ch in fd + fr]
+        
         elements = np.empty(xyz.shape[0], dtype=dtype_full)
-        attributes = np.concatenate((xyz, normals, opacities, scale, rotation, color * 255), axis=1)
+        attributes = np.concatenate((xyz, normals, opacities, scale, rotation, f_dc, f_rest), axis=1)
         elements[:] = list(map(tuple, attributes))
         el = PlyElement.describe(elements, 'vertex')
 

@@ -11,7 +11,7 @@ export CUDA_VISIBLE_DEVICES=$3
 
 ## for     materials, drums
 
-python train_blender.py -s $dataset --model_path $workspace -r 2 --eval --n_sparse 8 --rand_pcd --iterations 6000 --lambda_dssim 0.6 --white_background \
+python train_blender.py -s $dataset --model_path $workspace --use_SH --n_sparse 6 --rand_pcd --iterations 6000 --lambda_dssim 0.4 --white_background \
             --densify_grad_threshold 0.001 --prune_threshold 0.01 --densify_until_iter 6000 --percent_dense 0.01 \
             --densify_from_iter 500 \
             --position_lr_init 0.00016 --position_lr_final 0.0000016 --position_lr_max_steps 5500 --position_lr_start 500 \
@@ -21,8 +21,8 @@ python train_blender.py -s $dataset --model_path $workspace -r 2 --eval --n_spar
             --scaling_lr 0.005 \
             --shape_pena 0.000 --opa_pena 0.000 --scale_pena 0.000 \
 
-python render.py -s $dataset --model_path $workspace -r 2
-python metrics.py --model_path $workspace 
+# python render.py -s $dataset --model_path $workspace -r 2
+# python metrics.py --model_path $workspace 
 
 
 
