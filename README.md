@@ -5,7 +5,7 @@
 
 ![image](assets/main.png)
 
-used after zero123plus for 6v sparse reconstruction.
+Used after zero123plus for 6v sparse reconstruction.
 
 ## Installation
 
