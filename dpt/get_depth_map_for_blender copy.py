@@ -36,7 +36,7 @@ else:
     transform = midas_transforms.small_transform
 
 
-for dataset_id in [""]:
+for dataset_id in ["zero123"]:
     if args.root_path[-1]!="/":
         root_path = args.root_path+'/'
     else:
@@ -44,7 +44,7 @@ for dataset_id in [""]:
 
     # output_path = root_path
 
-    root_path_1 = root_path+dataset_id+'/train/*png'
+    root_path_1 = root_path+dataset_id+'/images/*png'
     image_paths_1 = sorted(glob.glob(root_path_1))
     image_path_pkg = [image_paths_1]
 
